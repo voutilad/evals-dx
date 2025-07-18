@@ -1,0 +1,12 @@
+{"item": {"code": "def f(x):\n    x + [1, 2]\n\nprint(f([0]))", "result": "None"}}
+{"item": {"code": "def g(x, y):\n    return x + y\n\nprint(g(-1, 3))", "result": "2"}}
+{"item": {"code": "def h(*args):\n    return [str(x) for x in args]\n\ndef g(x, y):\n    return x + y\n\nprint(g('hello', 'world'))", "result": "helloworld"}}
+{"item": {"code": "def z(x):\n    return f(x) or 10\n\ndef f(x):\n    x + [1, 2]\n\nprint(f([1, 2]))", "result": "None"}}
+{"item": {"code": "def y(x):\n    return x + x\n\nprint(y([1, 2]))", "result": "[1, 2, 1, 2]"}}
+{"item": {"code": "def y(x):\n    return x + x\n\nprint(y(20))", "result": "40"}}
+{"item": {"code": "def g(x, y):\n    return x + y\n\ndef f(x):\n    x + [1, 2]\n\ndef y(x):\n    return x + x\n\nprint(y('repeat'))", "result": "repeatrepeat"}}
+{"item": {"code": "def a(b: str, c: str, d=\"dishwasher\"):\n    return \" \".join([b, c, d])\n\nprint(a('purple', 'monkey'))", "result": "purple monkey dishwasher"}}
+{"item": {"code": "def f(x):\n    x + [1, 2]\n\ndef loaded_dice(n=6):\n    sides = [x + 1 for x in list(range(n))]\n    return sides[-1]\n\ndef g(x, y):\n    return x + y\n\nprint(loaded_dice(3))", "result": "3"}}
+{"item": {"code": "def tricky(x, y):\n    try:\n        return x[y]\n    except Exception as e:\n        return y\n\nprint(tricky({'name': 'Dave'}, 'age'))", "result": "age"}}
+{"item": {"code": "def a(b: str, c: str, d=\"dishwasher\"):\n    return \" \".join([b, c, d])\n\ndef y(x):\n    return x + x\n\nprint(a('x', 'y', 'z'))", "result": "x y z"}}
+{"item": {"code": "def a(b: str, c: str, d=\"dishwasher\"):\n    return \" \".join([b, c, d])\n\ndef h(*args):\n    return [str(x) for x in args]\n\nprint(h(['a'], ['b']))", "result": "[\"['a']\", \"['b']\"]"}}

@@ -60,7 +60,9 @@ QUIZ = [
     ([g, f, y], y, ["repeat"]),
     ([a], a, ["purple", "monkey"]),
     ([f, loaded_dice, g], loaded_dice, [3]),
-    ([tricky], tricky, [{"name": "Dave"}, "age"])
+    ([tricky], tricky, [{"name": "Dave"}, "age"]),
+    ([a, y], a, ["x", "y", "z"]),
+    ([a, h], h, [["a"], ["b"]])
 ]
 
 
