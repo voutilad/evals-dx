@@ -86,9 +86,9 @@ def azure_openai_client():
     if not endpoint:
         raise RuntimeError("AZURE_OPENAI_ENDPOINT env var missing")
 
-    token_provider = get_bearer_token_provider(
-        DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
-    )
+    #token_provider = get_bearer_token_provider(
+    #    DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+    #)
     return AzureOpenAI(
         api_version="2025-04-01-preview",
         azure_endpoint=endpoint,
