@@ -43,6 +43,21 @@ INPUT = [
         },
     },
 ]
+SCORE_MODEL_GRADER = {
+    "name": "python-checker",
+    "type": "score_model",
+    "model": common.GRADER_MODEL,
+    "input": INPUT,
+    "range": [0, 1],
+    "pass_threshold": 1,
+}
+STRING_CHECK_GRADER = {
+    "name": "python-string-checker",
+    "type": "string_check",
+    "operation": "eq",
+    "reference": "{{ item.result }}",
+    "input": "{{ sample.output_text }}"
+}
 
 eval = client.evals.create(
     name=f"{common.EVAL_BASENAME}-{UUID}",
@@ -57,17 +72,23 @@ eval = client.evals.create(
         "include_sample_schema": True,
         "type": "custom",
     },
-    testing_criteria=[{
-        "name": "python-checker",
-        "type": "score_model",
-        "model": common.GRADER_MODEL,
-        "input": INPUT,
-        "range": [0, 1],
-        "pass_threshold": 1,
-    }]
+    testing_criteria=[SCORE_MODEL_GRADER, STRING_CHECK_GRADER]
 )
 print("> Created new Eval")
 print(eval.to_json(indent=2))
+
+RUN_TEMPLATE = [
+    {
+        "type": "message",
+        "role": "system",
+        "content": { "type": "input_text", "text": common.TEST_PROMPT, },
+    },
+    {
+        "type": "message",
+        "role": "user",
+        "content": { "type": "input_text", "text": "{{ item.code }}", },
+    }
+]
 
 ## Define Test Runs
 runs = []
@@ -78,20 +99,8 @@ for model in common.TEST_MODELS:
         "source": { "type": "file_id", "id": file.id  },
         "input_messages": {
             "type": "template",
-            "template": [
-                {
-                    "type": "message",
-                    "role": "system",
-                    "content": { "type": "input_text", "text": common.TEST_PROMPT, },
-                },
-                {
-                    "type": "message",
-                    "role": "user",
-                    "content": { "type": "input_text", "text": "```python\n{{ item.code }}\n```", },
-                }
-            ]
+            "template": RUN_TEMPLATE,
         },
-        # "sampling_params": { "max_completions_tokens": 1000 }
     }
     run = client.evals.runs.create(
         name=f"{model}",
@@ -104,3 +113,24 @@ print("> Created runs:")
 for run in runs:
     print(run.to_json(indent=2))
 
+RUN_DATA_SOURCE = {
+    "type": "completions",
+    "model": model,
+    "source": { "type": "file_id", "id": file.id  },
+    "input_messages": {
+        "type": "template",
+        "template": [
+            {
+                "type": "message",
+                "role": "system",
+                "content": { "type": "input_text", "text": common.TEST_PROMPT, },
+            },
+            {
+                "type": "message",
+                "role": "user",
+                "content": { "type": "input_text", "text": "```python\n{{ item.code }}\n```", },
+            }
+        ]
+    },
+    # "sampling_params": { "max_completions_tokens": 1000 }
+}

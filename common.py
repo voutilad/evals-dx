@@ -49,13 +49,12 @@ Ground Truth: {{ item.result }}
 """
 
 TEST_MODELS = [
-    # "gpt-35-turbo",
     "gpt-4.1-nano",
-    #"gpt-4.1-mini",
-    #"gpt-4.1",
+    "gpt-4.1-mini",
+    "gpt-4.1",
     "gpt-4o-mini",
-    #"gpt-4o",
-    #"o3-mini",
+    "gpt-4o",
+    "o3-mini",
 ]
 
 TEST_PROMPT = """

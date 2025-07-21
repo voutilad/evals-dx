@@ -9,7 +9,8 @@ set an env:
 
 ```
 $ export AZURE_API_KEY=xxyzzy
-$ export AZURE_OPENAI_ENDPOINT=https://....
+$ export AZURE_OPENAI_ENDPOINT="https://..."
+$ export PROJECT_ENDPOINT="https://..."
 ```
 
 then choose your own adventure:
